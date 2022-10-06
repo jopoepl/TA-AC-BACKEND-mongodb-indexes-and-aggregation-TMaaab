@@ -13,14 +13,14 @@ db.users.aggregate([{$group: {_id: "$isActive", count: {$sum: 1}}}])
 db.users.aggregate([
   {
     $match: {
-      "name": {
-        $regex: "blake",
-        $options: "i"
-      }
+        matches: { $regexFindAll:  { 
+          input: "$name", 
+          regex: /blake/ 
+          } ,
     }
   }, {
     $group: {
-      _id: $name,
+      _id: matches,
       count: { $sum: 1 },
     },
   }
